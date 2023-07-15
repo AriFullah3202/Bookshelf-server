@@ -11,12 +11,16 @@ const createBook = async (book: IBook): Promise<IBook | null> => {
     throw new ApiError(httpStatus.NOT_FOUND, "User does not exist");
   }
 
-  let newBookAllData = null;
-
   const newBook = await Book.create(book);
 
   return newBook;
 };
+const getSingleBook = async (id: string): Promise<IBook | null> => {
+  const result = await Book.findById(id).populate("user");
+  return result;
+};
+
 export const BookService = {
   createBook,
+  getSingleBook,
 };

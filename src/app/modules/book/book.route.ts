@@ -11,5 +11,6 @@ router.post(
   validateRequest(BookValidation.bookZodSchema),
   BookController.createBook
 );
+router.get("/:id", BookController.getSingleBook);
 
 export const BookRoutes = { router };
