@@ -29,6 +29,12 @@ const createReview = async (
   }
 };
 
+const getReviewsByBookId = async (bookId: string): Promise<IReview[]> => {
+  const users = await Review.find({ bookId });
+  return users;
+};
+
 export const ReviewService = {
   createReview,
+  getReviewsByBookId,
 };

@@ -18,7 +18,17 @@ const createReview = catchAsync(async (req: Request, res: Response) => {
   });
 });
 // Get All Users
-const getAllReview = catchAsync(async (req: Request, res: Response) => {});
+const getAllReview = catchAsync(async (req: Request, res: Response) => {
+  const bookId = req.params.bookId;
+  const reviews = await ReviewService.getReviewsByBookId(bookId);
+  // Send a success response
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "reviews retrieved successfully",
+    data: reviews,
+  });
+});
 
 export const ReviewController = {
   createReview,
