@@ -3,6 +3,12 @@ import catchAsync from "../../../shared/catchAsync";
 import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { BookService } from "./book.service";
+import pick from "../../../shared/pick";
+import {
+  bookFilterandSearchAbleFields,
+  paginationFields,
+} from "./book.constraint";
+import { IBook } from "./book.interface";
 
 const createBook = catchAsync(async (req: Request, res: Response) => {
   const { ...bookData } = req.body;
@@ -27,7 +33,25 @@ const getSingleBook = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getAllBooks = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, bookFilterandSearchAbleFields);
+  console.log("first", req.query);
+
+  const paginationOption = pick(req.query, paginationFields);
+
+  const result = await BookService.getAllBooks(filters, paginationOption);
+
+  sendResponse<IBook[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Books retrieved successfully",
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 export const BookController = {
   createBook,
   getSingleBook,
+  getAllBooks,
 };
