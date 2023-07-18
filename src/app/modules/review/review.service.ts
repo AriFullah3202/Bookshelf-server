@@ -11,7 +11,8 @@ const createReview = async (reviewData: any): Promise<void> => {
   // if (!bookDetails) {
   //   throw new ApiError(httpStatus.NOT_FOUND, "book does not exist");
   // }
-  const bookReview = await Review.findOne({ book: reviewData?.id });
+  const bookReview = await Review.findOne({ book: reviewData?.book });
+  console.log(bookReview, "book revieww");
 
   if (bookReview) {
     console.log(bookReview._id, "thsi si if else");
@@ -27,7 +28,6 @@ const createReview = async (reviewData: any): Promise<void> => {
 };
 
 const getReviewsByBookId = async (bookId: string): Promise<IReview | null> => {
-  console.log("this is id", bookId);
   const users = await Review.findOne({ book: bookId });
 
   return users;
