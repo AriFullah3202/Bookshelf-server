@@ -15,6 +15,8 @@ const createBook = async (book: IBook): Promise<IBook | null> => {
   if (!userDetails) {
     throw new ApiError(httpStatus.NOT_FOUND, "User does not exist");
   }
+  // Save the publication date as a Date object.
+  book.publicationDate = new Date(book.publicationDate);
 
   const newBook = await Book.create(book);
 

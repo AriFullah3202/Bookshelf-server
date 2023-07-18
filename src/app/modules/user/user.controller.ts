@@ -10,6 +10,7 @@ import catchAsync from "../../../shared/catchAsync";
 const createUser = catchAsync(async (req: Request, res: Response) => {
   // Retrieve user data from the request body
   const userData = req.body;
+  console.log("thsi si suser data ", userData);
   // Create a new user using the UserModel
   const createdUser = await UserService.createUser(userData);
   // Send a success response
@@ -46,6 +47,7 @@ const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 const getUser = catchAsync(async (req: Request, res: Response) => {
   // Retrieve the user ID from the request parameters
   const userId: string = req.params.id;
+  console.log("this si single user ", userId);
 
   // Find the user by ID using the UserModel
   const user = await UserService.getUserById(userId);
@@ -91,6 +93,7 @@ const deleteUser = async (req: Request, res: Response) => {
 };
 
 const myProfile = async (req: Request, res: Response) => {
+  console.log("this is my profile");
   // Assuming user data is extracted from the access token
   const { _id, role } = req.user as { _id: string; role: string };
   const profile = await UserService.getProfile(_id, role);

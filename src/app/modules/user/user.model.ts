@@ -26,13 +26,13 @@ UserSchema.statics.isUserExist = async function (
   identified: loginUser
 ): Promise<Pick<
   IUser,
-  "_id" | "password" | "role" | "needsPasswordChange"
+  "_id" | "email" | "password" | "role" | "needsPasswordChange"
 > | null> {
   return await User.findOne(
     {
       $or: [identified],
     },
-    { _id: 1, role: 1, password: 1, needsPasswordChange: 1 }
+    { _id: 1, email: 1, role: 1, password: 1, needsPasswordChange: 1 }
   );
 };
 

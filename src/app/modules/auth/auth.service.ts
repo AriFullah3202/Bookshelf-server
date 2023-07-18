@@ -51,7 +51,7 @@ import { User } from "../user/user.model";
 // };
 
 const userLogin = async (userData: IlogIn): Promise<ILoginUserResponse> => {
-  const { email, password } = userData;
+  const { password } = userData;
   const data = { email: userData.email };
   // access to our static methods
   const isUserExist = await User.isUserExist(data);
@@ -67,7 +67,7 @@ const userLogin = async (userData: IlogIn): Promise<ILoginUserResponse> => {
   }
   //create access token & refresh token
 
-  const { _id, role, needsPasswordChange } = isUserExist;
+  const { _id, email, role, needsPasswordChange } = isUserExist;
   const accessToken = jwtHelpers.createToken(
     { _id, role },
     config.jwt.secret as Secret,
@@ -82,6 +82,8 @@ const userLogin = async (userData: IlogIn): Promise<ILoginUserResponse> => {
   // return the accestoken , refreshToken ,
   // needspasswordChange into the controller
   return {
+    email,
+    role,
     accessToken,
     refreshToken,
     needsPasswordChange,

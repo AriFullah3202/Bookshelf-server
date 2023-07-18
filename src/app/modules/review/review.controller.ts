@@ -5,10 +5,10 @@ import httpStatus from "http-status";
 import { ReviewService } from "./review.service";
 
 const createReview = catchAsync(async (req: Request, res: Response) => {
-  const bookId = req.params.id;
   const reviewData = req.body;
-
-  const result = await ReviewService.createReview(bookId, reviewData);
+  console.log(reviewData, "thsi sis review");
+  console.log(reviewData.book, "thsi id ");
+  const result = await ReviewService.createReview(reviewData);
 
   sendResponse(res, {
     success: true,
@@ -19,7 +19,7 @@ const createReview = catchAsync(async (req: Request, res: Response) => {
 });
 // Get All Users
 const getAllReview = catchAsync(async (req: Request, res: Response) => {
-  const bookId = req.params.bookId;
+  const bookId = req.params.id;
   const reviews = await ReviewService.getReviewsByBookId(bookId);
   // Send a success response
   sendResponse(res, {
